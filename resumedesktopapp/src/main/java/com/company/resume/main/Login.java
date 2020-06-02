@@ -10,6 +10,7 @@ import com.company.entity.User;
 import com.company.main.Context;
 import com.company.service.inter.UserServiceInter;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Frame;
 
 /**
@@ -19,12 +20,19 @@ import java.awt.Frame;
 public class Login extends javax.swing.JFrame {
 
     private UserServiceInter userDao = Context.instanceUserService();
+    
+
+    @Override
+    public Component add(Component comp) {
+        return super.add(comp); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        this.getRootPane().setDefaultButton(btnLogin);
     }
 
     /**
@@ -197,13 +205,14 @@ public class Login extends javax.swing.JFrame {
                 alertEmail("Email incorrect", "yellow");
             } else if (u2 == null) {
                 alertPassword("Password incorrect", "red");
-            } else{
+            } else {
                 this.setVisible(false);
-                if(u2.isAdmin()){
-                 new MainAdmin().setVisible(true);
-                }else{
-                new MainUser(u2).setVisible(true);}
-                
+                if (u2.isAdmin()) {
+                    new MainAdmin().setVisible(true);
+                } else {
+                    new MainUser(u2).setVisible(true);
+                }
+
             }
         }
 
@@ -239,7 +248,9 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                Login login = new Login();
+                login.setVisible(true);
+                
             }
         });
     }
